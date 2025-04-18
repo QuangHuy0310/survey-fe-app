@@ -71,7 +71,7 @@ const SurveyPage = () => {
             setFormData({ data: '', description: '' });
 
             // Làm mới danh sách khảo sát
-            const updatedResponse = await fetch(process.env.REACT_APP_BACK_END_URL +'/surveys/get-survey', {
+            const updatedResponse = await fetch(`${process.env.REACT_APP_BACK_END_URL}/surveys/remove?id=${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Thêm Bearer token vào header
                 }
