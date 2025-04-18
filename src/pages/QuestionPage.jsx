@@ -97,7 +97,7 @@ const QuestionPage = () => {
                 ? formData.options.split(',').map((opt) => opt.trim()).filter((opt) => opt)
                 : [];
 
-            const response = await fetch(process.env.REACT_APP_BACK_END_URL + '/questions/new-question', {
+            const response = await fetch(`${process.env.REACT_APP_BACK_END_URL}/questions/new-question`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -89,7 +89,7 @@ const SurveyPage = () => {
     const handleDeleteSurvey = async (id) => {
         if (window.confirm('Bạn chắc chắn muốn xóa khảo sát này?')) {
             try {
-                const response = await fetch(process.env.REACT_APP_BACK_END_URL`/surveys/remove?id=${id}`, {
+                const response = await fetch(`${process.env.REACT_APP_BACK_END_URL}/surveys/remove?id=${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}` // Thêm Bearer token vào header
