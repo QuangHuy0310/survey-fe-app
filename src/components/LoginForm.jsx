@@ -81,7 +81,7 @@ const LoginForm = () => {
     };
 
     const handleGoogleLogin = () => {
-        const googleLoginUrl = `${process.env.REACT_APP_BACK_END_URL}/auth/google/login`;
+        const googleLoginUrl = process.env.REACT_APP_BACK_END_URL`/auth/google/login`;
         console.log('Redirecting to:', googleLoginUrl); // DEBUG
         window.location.href = googleLoginUrl;
     };
