@@ -51,7 +51,7 @@ const SurveyComponent = ({ surveyId }) => {
 
       try {
         const response = await fetch(
-          process.env.REACT_APP_BACK_END_URL+ '/questions/get-question?surveyId=${surveyId}',
+          process.env.REACT_APP_BACK_END_URL `/questions/get-question?surveyId=${surveyId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Thêm Bearer token vào header

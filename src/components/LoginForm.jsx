@@ -9,7 +9,6 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    console.log('REACT_APP_BACK_END_URL:', process.env.REACT_APP_BACK_END_URL);
 
     // Handle Google login token from URL
     useEffect(() => {
