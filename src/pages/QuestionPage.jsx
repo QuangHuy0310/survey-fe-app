@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QuestionPage = () => {
     const [surveys, setSurveys] = useState([]);
@@ -12,14 +12,12 @@ const QuestionPage = () => {
     const [formData, setFormData] = useState({ title: '', type: '', options: '' });
     const [formError, setFormError] = useState(null);
 
-    // Lấy token từ localStorage và trả về header Authorization
     const getAuthHeader = () => {
         const token = localStorage.getItem("accessToken");
         if (!token) return {};
         return { Authorization: `Bearer ${token}` };
     };
 
-    // Lấy danh sách khảo sát
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
@@ -41,7 +39,6 @@ const QuestionPage = () => {
         fetchSurveys();
     }, []);
 
-    // Lấy danh sách câu hỏi khi chọn khảo sát
     useEffect(() => {
         if (!selectedSurveyId) {
             setQuestions([]);
@@ -52,7 +49,7 @@ const QuestionPage = () => {
             setLoadingQuestions(true);
             try {
                 const response = await fetch(
-                    process.env.REACT_APP_BACK_END_URL`/questions/get-question?surveyId=${selectedSurveyId}`,
+                    process.env.REACT_APP_BACK_END_URL + `/questions/get-question?surveyId=${selectedSurveyId}`,
                     { headers: getAuthHeader() }
                 );
                 if (!response.ok) {
@@ -70,19 +67,16 @@ const QuestionPage = () => {
         fetchQuestions();
     }, [selectedSurveyId]);
 
-    // Xử lý thay đổi lựa chọn khảo sát
     const handleSurveyChange = (e) => {
         setSelectedSurveyId(e.target.value);
-        setError(null); // Xóa lỗi khi chọn khảo sát mới
+        setError(null);
     };
 
-    // Xử lý thay đổi input trong form
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Xử lý submit form tạo câu hỏi
     const handleSubmit = async (e) => {
         e.preventDefault();
         setFormError(null);
@@ -101,7 +95,7 @@ const QuestionPage = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    ...getAuthHeader()  // Thêm Authorization header
+                    ...getAuthHeader()
                 },
                 body: JSON.stringify({
                     surveyId: selectedSurveyId,
@@ -115,11 +109,9 @@ const QuestionPage = () => {
                 throw new Error('Lỗi khi tạo câu hỏi');
             }
 
-            // Đóng modal và reset form
             setShowModal(false);
             setFormData({ title: '', type: '', options: '' });
 
-            // Làm mới danh sách câu hỏi
             const updatedResponse = await fetch(
                 `${process.env.REACT_APP_BACK_END_URL}/questions/get-question?surveyId=${selectedSurveyId}`,
                 { headers: getAuthHeader() }
@@ -158,13 +150,12 @@ const QuestionPage = () => {
                 <button
                     className="btn btn-primary"
                     onClick={() => setShowModal(true)}
-                    disabled={!selectedSurveyId} // Vô hiệu hóa nếu chưa chọn khảo sát
+                    disabled={!selectedSurveyId}
                 >
                     Tạo câu hỏi
                 </button>
             </div>
 
-            {/* Thanh select khảo sát */}
             <div className="mb-4">
                 <label htmlFor="surveySelect" className="form-label fw-bold">
                     Chọn khảo sát
@@ -184,7 +175,6 @@ const QuestionPage = () => {
                 </select>
             </div>
 
-            {/* Bảng câu hỏi */}
             {selectedSurveyId ? (
                 loadingQuestions ? (
                     <div className="text-center py-4">
@@ -201,11 +191,11 @@ const QuestionPage = () => {
                         <table className="table table-striped table-hover table-bordered">
                             <thead className="table-dark">
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Tiêu đề câu hỏi</th>
-                                    <th scope="col">Loại</th>
-                                    <th scope="col">Tùy chọn</th>
-                                    <th scope="col">Ngày tạo</th>
+                                    <th>ID</th>
+                                    <th>Tiêu đề câu hỏi</th>
+                                    <th>Loại</th>
+                                    <th>Tùy chọn</th>
+                                    <th>Ngày tạo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -214,14 +204,8 @@ const QuestionPage = () => {
                                         <td>{question._id}</td>
                                         <td>{question.title}</td>
                                         <td>{question.type}</td>
-                                        <td>
-                                            {question.options && question.options.length > 0
-                                                ? question.options.join(', ')
-                                                : 'Không có'}
-                                        </td>
-                                        <td>
-                                            {new Date(question.createdAt).toLocaleString('vi-VN')}
-                                        </td>
+                                        <td>{question.options?.length ? question.options.join(', ') : 'Không có'}</td>
+                                        <td>{new Date(question.createdAt).toLocaleString('vi-VN')}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -234,7 +218,6 @@ const QuestionPage = () => {
                 </div>
             )}
 
-            {/* Modal tạo câu hỏi */}
             {showModal && (
                 <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1">
                     <div className="modal-dialog">
@@ -259,23 +242,18 @@ const QuestionPage = () => {
                                 )}
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-3">
-                                        <label htmlFor="title" className="form-label">
-                                            Tiêu đề câu hỏi
-                                        </label>
+                                        <label htmlFor="title" className="form-label">Tiêu đề câu hỏi</label>
                                         <textarea
                                             className="form-control"
                                             id="title"
                                             name="title"
                                             value={formData.title}
                                             onChange={handleInputChange}
-                                            placeholder="Nhập tiêu đề câu hỏi"
                                             rows="4"
-                                        ></textarea>
+                                        />
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="type" className="form-label">
-                                            Loại câu hỏi
-                                        </label>
+                                        <label htmlFor="type" className="form-label">Loại câu hỏi</label>
                                         <select
                                             className="form-select"
                                             id="type"
@@ -290,9 +268,7 @@ const QuestionPage = () => {
                                         </select>
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="options" className="form-label">
-                                            Tùy chọn (phân cách bằng dấu phẩy)
-                                        </label>
+                                        <label htmlFor="options" className="form-label">Tùy chọn (cách nhau bằng dấu phẩy)</label>
                                         <input
                                             type="text"
                                             className="form-control"
