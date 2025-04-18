@@ -121,7 +121,7 @@ const QuestionPage = () => {
 
             // Làm mới danh sách câu hỏi
             const updatedResponse = await fetch(
-                process.env.REACT_APP_BACK_END_URL`/questions/get-question?surveyId=${selectedSurveyId}`,
+                `${process.env.REACT_APP_BACK_END_URL}/questions/get-question?surveyId=${selectedSurveyId}`,
                 { headers: getAuthHeader() }
             );
             if (updatedResponse.ok) {
