@@ -1,0 +1,48 @@
+.manager-page {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    transition: width 0.3s ease;
+}
+
+.sidebar.open {
+    width: 250px;
+}
+
+.sidebar.closed {
+    width: 80px;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.content.sidebar-open {
+    margin-left: 250px;
+}
+
+.content.sidebar-closed {
+    margin-left: 80px;
+}
+
+@media (max-width: 768px) {
+    .sidebar.open {
+        width: 200px;
+    }
+
+    .sidebar.closed {
+        width: 60px;
+    }
+
+    .content.sidebar-open {
+        margin-left: 200px;
+    }
+
+    .content.sidebar-closed {
+        margin-left: 60px;
+    }
+}
