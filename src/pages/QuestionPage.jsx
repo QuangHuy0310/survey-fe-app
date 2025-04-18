@@ -23,7 +23,7 @@ const QuestionPage = () => {
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await fetch('http://localhost:3000/surveys/get-survey', {
+                const response = await fetch(process.env.REACT_APP_BACK_END_URL + '/surveys/get-survey', {
                     headers: getAuthHeader()
                 });
                 if (!response.ok) {
@@ -52,7 +52,7 @@ const QuestionPage = () => {
             setLoadingQuestions(true);
             try {
                 const response = await fetch(
-                    `http://localhost:3000/questions/get-question?surveyId=${selectedSurveyId}`,
+                    process.env.REACT_APP_BACK_END_URL`/questions/get-question?surveyId=${selectedSurveyId}`,
                     { headers: getAuthHeader() }
                 );
                 if (!response.ok) {
@@ -97,7 +97,7 @@ const QuestionPage = () => {
                 ? formData.options.split(',').map((opt) => opt.trim()).filter((opt) => opt)
                 : [];
 
-            const response = await fetch('http://localhost:3000/questions/new-question', {
+            const response = await fetch(process.env.REACT_APP_BACK_END_URL + '/questions/new-question', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const QuestionPage = () => {
 
             // Làm mới danh sách câu hỏi
             const updatedResponse = await fetch(
-                `http://localhost:3000/questions/get-question?surveyId=${selectedSurveyId}`,
+                process.env.REACT_APP_BACK_END_URL`/questions/get-question?surveyId=${selectedSurveyId}`,
                 { headers: getAuthHeader() }
             );
             if (updatedResponse.ok) {

@@ -19,7 +19,7 @@ const SurveyComponent = ({ surveyId }) => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/responses/new-response", {
+      const res = await fetch(process.env.REACT_APP_BACK_END_URL + '/responses/new-response', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const SurveyComponent = ({ surveyId }) => {
 
       try {
         const response = await fetch(
-          `http://localhost:3000/questions/get-question?surveyId=${surveyId}`,
+          process.env.REACT_APP_BACK_END_URL+ '/questions/get-question?surveyId=${surveyId}',
           {
             headers: {
               Authorization: `Bearer ${token}`, // Thêm Bearer token vào header

@@ -9,6 +9,7 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+    console.log('REACT_APP_BACK_END_URL:', process.env.REACT_APP_BACK_END_URL);
 
     // Handle Google login token from URL
     useEffect(() => {
@@ -51,7 +52,7 @@ const LoginForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://survey-be-app-production.up.railway.app/Auth/login', {
+            const response = await axios.post(process.env.REACT_APP_BACK_END_URL + '/Auth/login', {
                 email,
                 password,
             });
@@ -81,7 +82,7 @@ const LoginForm = () => {
     };
 
     const handleGoogleLogin = () => {
-        window.location.href = 'https://survey-be-app-production.up.railway.app/auth/google/login';
+        window.location.href = process.env.REACT_APP_BACK_END_URL + '/auth/google/login';
     };
 
     return (

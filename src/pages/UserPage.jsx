@@ -15,7 +15,7 @@ const UserPage = () => {
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await fetch('http://localhost:3000/surveys/get-survey', {
+                const response = await fetch(process.env.REACT_APP_BACK_END_URL +'/surveys/get-survey', {
                     headers: {
                         'Authorization': `Bearer ${token}` // Thêm Bearer token vào header
                     }

@@ -16,7 +16,7 @@ const SurveyPage = () => {
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await fetch('http://localhost:3000/surveys/get-survey', {
+                const response = await fetch(process.env.REACT_APP_BACK_END_URL +'/surveys/get-survey', {
                     headers: {
                         'Authorization': `Bearer ${token}` // Thêm Bearer token vào header
                     }
@@ -53,7 +53,7 @@ const SurveyPage = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/surveys/new-survey', {
+            const response = await fetch(process.env.REACT_APP_BACK_END_URL +'/surveys/new-survey', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const SurveyPage = () => {
             setFormData({ data: '', description: '' });
 
             // Làm mới danh sách khảo sát
-            const updatedResponse = await fetch('http://localhost:3000/surveys/get-survey', {
+            const updatedResponse = await fetch(process.env.REACT_APP_BACK_END_URL +'/surveys/get-survey', {
                 headers: {
                     'Authorization': `Bearer ${token}` // Thêm Bearer token vào header
                 }
@@ -89,7 +89,7 @@ const SurveyPage = () => {
     const handleDeleteSurvey = async (id) => {
         if (window.confirm('Bạn chắc chắn muốn xóa khảo sát này?')) {
             try {
-                const response = await fetch(`http://localhost:3000/surveys/remove?id=${id}`, {
+                const response = await fetch(process.env.REACT_APP_BACK_END_URL`/surveys/remove?id=${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}` // Thêm Bearer token vào header

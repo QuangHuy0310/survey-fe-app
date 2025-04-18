@@ -22,7 +22,7 @@ const UserResponsePage = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:3000/responses/users', {
+                const response = await fetch(process.env.REACT_APP_BACK_END_URL+ '/responses/users', {
                     headers: {
                         Authorization: `Bearer ${token}`, // Thêm Bearer token vào header
                     },

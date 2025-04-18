@@ -32,7 +32,7 @@ const UserResponses = ({ userId: propUserId }) => {
 
             try {
                 const res = await fetch(
-                    `http://localhost:3000/responses/by-user?userId=${userId}`,
+                    process.env.REACT_APP_BACK_END_URL + `/responses/by-user?userId=${userId}`,
                     { headers }
                 );
                 if (!res.ok) throw new Error("Không thể lấy dữ liệu câu trả lời.");
