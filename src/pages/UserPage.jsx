@@ -14,7 +14,7 @@ const UserPage = () => {
             try {
                 const token = localStorage.getItem('accessToken'); // Lấy accessToken từ localStorage
     
-                const response = await fetch('https://survey-be-app-production.up.railway.app/surveys/get-survey', {
+                const response = await fetch(process.env.REACT_APP_BACK_END_URL+'/surveys/get-survey', {
                     headers: {
                         'Authorization': `Bearer ${token}`, // Thêm Bearer token vào header
                         'Content-Type': 'application/json'
