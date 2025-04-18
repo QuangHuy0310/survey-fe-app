@@ -8,24 +8,26 @@ const UserPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Lấy Bearer token từ localStorage
-    const token = localStorage.getItem('accessToken'); // Hoặc lấy từ nơi bạn lưu trữ token
-
     // Lấy danh sách khảo sát
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_BACK_END_URL +'/surveys/get-survey', {
+                const token = localStorage.getItem('accessToken'); // Lấy accessToken từ localStorage
+    
+                const response = await fetch('https://survey-be-app-production.up.railway.app/surveys/get-survey', {
                     headers: {
-                        'Authorization': `Bearer ${token}` // Thêm Bearer token vào header
+                        'Authorization': `Bearer ${token}`, // Thêm Bearer token vào header
+                        'Content-Type': 'application/json'
                     }
                 });
+    
                 if (!response.ok) {
                     throw new Error('Lỗi khi lấy danh sách khảo sát');
                 }
+    
                 const data = await response.json();
                 setSurveys(data.item || []);
-                // Chọn khảo sát đầu tiên nếu có
+    
                 if (data.item && data.item.length > 0) {
                     setSelectedSurveyId(data.item[0]._id);
                 }
@@ -35,9 +37,9 @@ const UserPage = () => {
                 setLoading(false);
             }
         };
-
+    
         fetchSurveys();
-    }, [token]); // Token là dependency trong useEffect
+    }, []);
 
     // Xử lý thay đổi lựa chọn khảo sát
     const handleSurveyChange = (e) => {

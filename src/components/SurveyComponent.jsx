@@ -5,6 +5,7 @@ import "survey-core/defaultV2.min.css";
 import { useNavigate } from "react-router-dom";
 
 const SurveyComponent = ({ surveyId }) => {
+  console.log("Survey ID:", surveyId); // Log the surveyId to check if
   const [surveyModel, setSurveyModel] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
@@ -51,10 +52,10 @@ const SurveyComponent = ({ surveyId }) => {
 
       try {
         const response = await fetch(
-          process.env.REACT_APP_BACK_END_URL `/questions/get-question?surveyId=${surveyId}`,
+          `${process.env.REACT_APP_BACK_END_URL}/questions/get-question?surveyId=${surveyId}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Thêm Bearer token vào header
+              Authorization: `Bearer ${token}`,
             },
           }
         );
