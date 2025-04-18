@@ -52,7 +52,7 @@ const LoginForm = () => {
 
         try {
             const response = await axios.post(
-                `${process.env.REACT_APP_BACK_END_URL}/auth/login`,
+                process.env.REACT_APP_BACK_END_URL`/auth/login`,
                 { email, password }
             );
 
